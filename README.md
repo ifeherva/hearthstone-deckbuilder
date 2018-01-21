@@ -1,4 +1,4 @@
-# hearthstone deck builder with deep learning based card recommendations
+# Hearthstone deck builder with card recommendations
 
 A deck builder web application for Blizzard's Hearthstone. Built with AngularJS.
 
