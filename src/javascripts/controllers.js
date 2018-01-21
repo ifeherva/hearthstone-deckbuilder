@@ -1,37 +1,70 @@
 angular.module('app.controllers', [])
-  .controller('HeroesCtrl', function($scope) {
-    $scope.heroes = [
-      { className: 'warrior', image: '/images/garrosh.png' },
-      { className: 'shaman', image: '/images/thrall.png' },
-      { className: 'rogue', image: '/images/valeera.png' },
-      { className: 'paladin', image: '/images/uther.png' },
-      { className: 'hunter', image: '/images/rexxar.png' },
-      { className: 'druid', image: '/images/malfurion.png' },
-      { className: 'warlock', image: '/images/guldan.png' },
-      { className: 'mage', image: '/images/jaina.png' },
-      { className: 'priest', image: '/images/anduin.png' }
+  .controller('HeroesCtrl', function ($scope) {
+    $scope.heroes = [{
+        className: 'warrior',
+        image: '/images/garrosh.png'
+      },
+      {
+        className: 'shaman',
+        image: '/images/thrall.png'
+      },
+      {
+        className: 'rogue',
+        image: '/images/valeera.png'
+      },
+      {
+        className: 'paladin',
+        image: '/images/uther.png'
+      },
+      {
+        className: 'hunter',
+        image: '/images/rexxar.png'
+      },
+      {
+        className: 'druid',
+        image: '/images/malfurion.png'
+      },
+      {
+        className: 'warlock',
+        image: '/images/guldan.png'
+      },
+      {
+        className: 'mage',
+        image: '/images/jaina.png'
+      },
+      {
+        className: 'priest',
+        image: '/images/anduin.png'
+      }
     ];
   })
-  .controller('BuilderCtrl', function($scope, $routeParams, hearthstoneDb, $location) {
+  .controller('BuilderCtrl', function ($scope, $routeParams, hearthstoneDb, $location) {
     if ($routeParams.className) {
       $scope.className = $routeParams.className;
-      hearthstoneDb.get().then(function(db) {
-        $scope.cards = db.cards;
-        $scope.deck = deckFromString($location.hash(), db.cards);
+      hearthstoneDb.get().then(function (db) {
+        $scope.cards = db;
+        $scope.deck = deckFromString($location.hash(), db);
         update();
       });
     }
 
+    // TODO: this should be a map instead of an array
     $scope.deck = [];
     $scope.count = 0;
     $scope.dustCost = 0;
     $scope.unavailable = {};
     $scope.search = {
-      hero: $scope.className
+      playerClass: $scope.className
     };
 
+    $scope.cardAllowed = function (className) {
+      return function (item) {
+        return item.cost >= 0 && item.playerClass == className.toUpperCase();
+      }
+    }
+
     function addCardToDeck(card) {
-      if (!$scope.arenaDeck && $scope.unavailable[card.id]) return;
+      if ((!$scope.arenaDeck && $scope.unavailable[card.dbfId]) || $scope.count == 30) return;
       var deck = $scope.deck;
       for (var i = 0; i < deck.length; i++) {
         if (deck[i].card.id == card.id) {
@@ -40,7 +73,10 @@ angular.module('app.controllers', [])
           return;
         }
       }
-      deck.push({ card: card, count: 1 });
+      deck.push({
+        card: card,
+        count: 1
+      });
       update();
     }
 
@@ -60,7 +96,7 @@ angular.module('app.controllers', [])
 
     function deckToString() {
       var strParts = [];
-      $scope.deck.forEach(function(entry) {
+      $scope.deck.forEach(function (entry) {
         var card = entry.card;
         var count = entry.count;
         if (!count) return;
@@ -74,13 +110,16 @@ angular.module('app.controllers', [])
     function deckFromString(str, cards) {
       var deck = [];
       var strParts = str.split(',');
-      strParts.forEach(function(strPart) {
+      strParts.forEach(function (strPart) {
         var index = strPart.indexOf(':');
         var id = parseInt(index >= 0 ? strPart.substr(0, index) : strPart);
         var count = index >= 0 ? parseInt(strPart.substr(index + 1)) : 1;
         for (var i = 0; i < cards.length; i++) {
           if (cards[i].id == id) {
-            deck.push({ card: cards[i], count: count });
+            deck.push({
+              card: cards[i],
+              count: count
+            });
             break;
           }
         }
@@ -98,33 +137,33 @@ angular.module('app.controllers', [])
 
     function updateAvailability() {
       $scope.unavailable = {};
-      $scope.deck.forEach(function(entry) {
+      $scope.deck.forEach(function (entry) {
         var card = entry.card;
         var count = entry.count;
-        $scope.unavailable[card.id] = count >= 2 || (card.quality == 'legendary' && count >= 1);
+        $scope.unavailable[card.dbfId] = count >= 2 || (card.rarity == 'LEGENDARY' && count >= 1);
       });
     }
 
     function updateCount() {
-      $scope.count = $scope.deck.reduce(function(a, b) {
+      $scope.count = $scope.deck.reduce(function (a, b) {
         return a + b.count;
       }, 0);
     }
 
     function updateDustCost() {
       var costs = {
-        free: 0,
-        common: 40,
-        rare: 100,
-        epic: 400,
-        legendary: 1600
+        FREE: 0,
+        COMMON: 40,
+        RARE: 100,
+        EPIC: 400,
+        LEGENDARY: 1600
       };
 
       $scope.dustCost = 0;
-      $scope.deck.forEach(function(entry) {
+      $scope.deck.forEach(function (entry) {
         var card = entry.card;
         var count = entry.count;
-        $scope.dustCost += count * costs[card.quality];
+        $scope.dustCost += count * costs[card.rarity];
       });
     }
 
@@ -132,21 +171,21 @@ angular.module('app.controllers', [])
       $location.hash(deckToString());
     }
 
-    $scope.pick = function(card) {
+    $scope.pick = function (card) {
       addCardToDeck(card);
     };
 
-    $scope.remove = function(card) {
+    $scope.remove = function (card) {
       removeCardFromDeck(card);
     };
 
     function updateManaCurve() {
       $scope.curve = [0, 0, 0, 0, 0, 0, 0, 0];
 
-      $scope.deck.forEach(function(entry) {
+      $scope.deck.forEach(function (entry) {
         var card = entry.card;
         var count = entry.count;
-        $scope.curve[Math.min(7, card.mana)] += count;
+        $scope.curve[Math.min(7, card.cost)] += count;
       });
 
       var max = 10;
@@ -157,7 +196,5 @@ angular.module('app.controllers', [])
     }
 
   })
-  .controller('CardsCtrl', function($scope) {
-  })
-  .controller('DeckCtrl', function($scope) {
-  });
+  .controller('CardsCtrl', function ($scope) {})
+  .controller('DeckCtrl', function ($scope) {});

@@ -4,7 +4,7 @@
 
 var modRewrite = require('connect-modrewrite');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     cards: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
             if (!Array.isArray(options.base)) {
               options.base = [options.base];
             }
-            options.base.forEach(function(base) {
+            options.base.forEach(function (base) {
               // Serve static files.
               middlewares.push(connect.static(base));
             });
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       },
       hearthStoneDb: {
         files: {
-          'dist/all-collectibles.json': ['bower_components/hearthstone-db/cards/all-collectibles.json']
+          'dist/collectible_cards.json': ['src/resources/collectible_cards.json']
         }
       }
     },

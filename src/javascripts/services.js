@@ -1,8 +1,8 @@
 angular.module('app.services', [])
-  .factory('hearthstoneDb', function($http) {
+  .factory('hearthstoneDb', function ($http) {
     return {
-      get: function() {
-        return $http.get('all-collectibles.json').then(function(response) {
+      get: function () {
+        return $http.get('collectible_cards.json').then(function (response) {
           return response.data;
         });
       }

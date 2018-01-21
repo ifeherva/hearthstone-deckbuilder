@@ -2,7 +2,9 @@ header.header
   h1
     a(href='..') Hearthstone Deck Builder
   p.author Created by 
-    a(href='http://matthiasklein.me') Matthias Klein
+    a(href='http://elie.net') Elie Bursztein
+    |  and 
+    a(href='https://github.com/ifeherva/') Istvan Fehervari
 section.content
   div.heroes
     h1 Choose your Hero
@@ -11,4 +13,8 @@ section.content
         a(href='{{hero.className}}')
           img(watch-load, height='200', ng-src='{{hero.image}}', width='200')
           span.name {{hero.className | capitalize}}
+footer.footer
+  h1
+    | Original frontend design courtesy of 
+    a(href='http://matthiasklein.me') Matthias Klein
 
