@@ -38,7 +38,7 @@ angular.module('app.controllers', [])
       }
     ];
   })
-  .controller('BuilderCtrl', function ($scope, $routeParams, hearthstoneDb, $location) {
+  .controller('BuilderCtrl', function ($scope, $routeParams, hearthstoneDb, $location, suggestionService) {
     if ($routeParams.className) {
       $scope.className = $routeParams.className;
       hearthstoneDb.get().then(function (db) {
@@ -48,6 +48,10 @@ angular.module('app.controllers', [])
       });
     }
 
+    $scope.allowedSets = ["CORE", "EXPERT1", "OG", "KARA", "GANGS", "UNGORO", "ICECROWN", "LOOTAPALOOZA"];
+
+    $scope.suggestionService = suggestionService;
+
     // TODO: this should be a map instead of an array
     $scope.deck = [];
     $scope.count = 0;
@@ -56,11 +60,18 @@ angular.module('app.controllers', [])
     $scope.search = {
       playerClass: $scope.className
     };
+    $scope.suggestions = [];
 
     $scope.cardAllowed = function (className) {
-      return function (item) {
-        return item.cost >= 0 && item.playerClass == className.toUpperCase();
+      return function (card) {
+        return card.cost >= 0 && card.playerClass == className.toUpperCase() && ($scope.allowedSets.indexOf(card.set) !== -1);
       }
+    }
+
+    function updateSuggestions() {
+      $scope.suggestionService.get($scope.className.toLowerCase()).then(function (db) {
+        console.log(db);
+      });
     }
 
     function addCardToDeck(card) {
@@ -78,6 +89,7 @@ angular.module('app.controllers', [])
         count: 1
       });
       update();
+      updateSuggestions();
     }
 
     function removeCardFromDeck(card) {
@@ -89,6 +101,7 @@ angular.module('app.controllers', [])
           if (deck[i].count <= 0) {
             deck.splice(i, 1);
           }
+          updateSuggestions();
           return;
         }
       }
