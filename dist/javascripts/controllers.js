@@ -43,6 +43,13 @@ angular.module('app.controllers', [])
       $scope.className = $routeParams.className;
       hearthstoneDb.get().then(function (db) {
         $scope.cards = db;
+
+        // create lookup for fast suggestion processing
+        $scope.dbfIdLookup = {};
+        for (var i = 0, len = db.length; i < len; i++) {
+          $scope.dbfIdLookup[db[i].dbfId] = db[i];
+        }
+
         $scope.deck = deckFromString($location.hash(), db);
         update();
       });
@@ -69,8 +76,23 @@ angular.module('app.controllers', [])
     }
 
     function updateSuggestions() {
-      $scope.suggestionService.get($scope.className.toLowerCase()).then(function (db) {
-        console.log(db);
+      if ($scope.deck.length == 0) {
+        $scope.suggestions = [];
+        return;
+      }
+      var cards = $scope.deck.map(
+        function (item) {
+          return item.card.name;
+        }
+      );
+
+      $scope.suggestionService.get($scope.className.toLowerCase(), cards).then(function (suggestions) {
+        console.log(suggestions);
+
+        $scope.suggestions = [];
+        for (var i = 0; i < Math.min(suggestions.length, 3); i++) {
+          $scope.suggestions.push($scope.dbfIdLookup[suggestions[i].dbfId]);
+        }
       });
     }
 

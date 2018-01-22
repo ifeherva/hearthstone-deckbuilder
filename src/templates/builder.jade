@@ -22,6 +22,13 @@ div.content.builder
       li(ng-repeat='card in cards | filter:cardAllowed(search.playerClass) | orderBy:["cost", "name"]', ng-class='{ unavailable: !arenaDeck && unavailable[{{card.dbfId}}] }', ng-click='pick(card)')
         img(height='298', width='200', ng-src='https://art.hearthstonejson.com/v1/render/latest/enUS/256x/{{card.id}}.png')
   section.deck(ng-controller='DeckCtrl')
+    section.suggestions
+      p
+        | Suggestions
+      ul
+      li(ng-repeat='card in suggestions | orderBy:["card.cost", "card.name"]', ng-class='card.rarity', card-list-item, card='card', count='1')
+    p
+      | Deck
     ul
       li(ng-repeat='entry in deck | orderBy:["card.cost", "card.name"]', ng-class='entry.card.rarity', ng-click='remove(entry.card)', card-list-item, card='entry.card', count='entry.count')
     figure.mana-curve
