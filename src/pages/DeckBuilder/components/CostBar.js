@@ -4,14 +4,21 @@ import styled from 'styled-components'
 import View from '../../../components/View'
 
 CostBar.propTypes = {
-  cost: PropTypes.number.isRequired,
+  cost: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   bar: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired
 }
 
+const Container = styled(View)`
+  height: 100%;
+`
+
 const BarContainer = styled(View)`
   position: relative;
-  background-color: rgb(255, 255, 255, 0.4);
+  width: 20px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.15);
 `
 
 const Bar = styled(View)`
@@ -19,21 +26,22 @@ const Bar = styled(View)`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgb(255, 255, 255, 0.8);
-  heigth: ${props => props.fill};
+  background-color: rgba(40,110,178, 0.8);
+  height: ${props => props.fill}%;
 `
 
 const Label = styled.span`
   color: #cdcdcd;
   font-size: 1rem;
+  margin: 0.5rem;
 `
 
 export default function CostBar({ cost, bar, count }) {
-  return <View flex>
+  return <Container flex justify='center' align='center'>
     <Label>{count}</Label>
     <BarContainer flex>
       <Bar fill={bar} />
     </BarContainer>
     <Label>{cost}</Label>
-  </View>
+  </Container>
 }
