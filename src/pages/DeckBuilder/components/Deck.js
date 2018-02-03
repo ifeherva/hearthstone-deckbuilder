@@ -6,6 +6,6 @@ const Container = styled(View)`
   overflow: auto;
 `
 
-export default function Deck() {
+export default function Deck () {
   return <Container flex>foo</Container>
 }

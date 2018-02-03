@@ -7,6 +7,6 @@ const Container = styled(View)`
   overflow: auto;
 `
 
-export default function Suggestions() {
+export default function Suggestions () {
   return <Container>foo</Container>
 }

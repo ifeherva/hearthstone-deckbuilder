@@ -36,7 +36,7 @@ const Label = styled.span`
   margin: 0.5rem;
 `
 
-export default function CostBar({ cost, bar, count }) {
+export default function CostBar ({ cost, bar, count }) {
   return <Container flex justify='center' align='center'>
     <Label>{count}</Label>
     <BarContainer flex>

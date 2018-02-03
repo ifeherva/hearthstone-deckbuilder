@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import View from '../../components/View'
-import Header from '../../components/Header'
-import Subtitle from '../../components/Subtitle'
 import CostChart from './components/CostChart'
 import Suggestions from './components/Suggestions'
 import Deck from './components/Deck'
@@ -35,8 +33,7 @@ export default class DeckBuilder extends Component {
   render () {
     return (
       <PageContainer direction='row' flex full='vertical'>
-        <Background flex>
-        </Background>
+        <Background flex />
         <Sidebar full='vertical'>
           <Suggestions />
           <Separator />

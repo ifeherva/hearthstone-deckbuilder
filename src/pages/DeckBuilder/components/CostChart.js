@@ -8,7 +8,7 @@ const Container = styled(View)`
   padding: 1rem;
 `
 
-export default function CostChart() {
+export default function CostChart () {
   return <Container direction='row' justify='space-around' align='center'>
     <CostBar cost={1} bar={0} count={4} />
     <CostBar cost={2} bar={10} count={2} />
