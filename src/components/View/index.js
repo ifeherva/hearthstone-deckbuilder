@@ -1,51 +1,106 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+function buildStyle ({ wrap, direction, align, justify, full, flex }) {
+  const output = {}
+  if (wrap) {
+    output['flex-wrap'] = 'wrap'
+  }
+
+  if (direction === 'row') {
+    output['flex-direction'] = 'row'
+  } else if (direction === 'column') {
+    output['flex-direction'] = 'column'
+  }
+
+  if (align) {
+    output['align-items'] = align
+  }
+
+  if (justify) {
+    output['justify-content'] = align
+  }
+
+  if (justify) {
+    output['justify-content'] = justify
+  }
+
+  if (flex === 'grow') {
+    output['flex-grow'] = 1
+    output['flex-shrink'] = 0
+    output['flex-basis'] = 'auto'
+  } else if (flex === 'shrink') {
+    output['flex-grow'] = 0
+    output['flex-shrink'] = 1
+    output['flex-basis'] = 'auto'
+  } else if (flex) {
+    output['flex-grow'] = 1
+    output['flex-shrink'] = 1
+    output['flex-basis'] = 'auto'
+  } else {
+    output['flex-grow'] = 0
+    output['flex-shrink'] = 0
+    output['flex-basis'] = 'auto'
+  }
+
+  if (full === 'vertical') {
+    output['height'] = '100%'
+    output['max-height'] = '100%'
+    output['overflow'] = 'auto'
+  } else if (full === 'horizontal') {
+    output['max-width'] = '100%'
+    output['width'] = '100%'
+  } else if (full) {
+    output['max-width'] = '100%'
+    output['width'] = '100%'
+    output['height'] = '100%'
+    output['max-height'] = '100%'
+    output['overflow'] = 'auto'
+  }
+
+  const res = Object.keys(output).reduce((str, key) => {
+    return str + `${key}: ${output[key]};`
+  }, '')
+  return res
+}
 
 const View = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  flex: 0 0 auto;
-
   background-color: transparent;
   color: inherit;
   font: inherit;
   text-align: inherit;
-
-  ${p => p.justify && `
-    justify-content: ${p => p.justify};
-  `}
-
-  ${p => p.align && `
-    align-items: ${p => p.align};
-  `}
-
-  ${p => p.direction === 'row' && `
-    flex-direction: row;
-  `}
-
-  ${p => p.flex && `
-    flex: 1 1 auto;
-  `}
-
-  ${p => p.full === 'horizontal' && `
-    max-width: 100%;
-    width: 100vw;
-  `}
-
-  ${p => p.full === 'vertical' && `
-    min-height: 100vh;
-  `}
-
-  ${p => p.padding && `
-    padding: ${p => p.padding};
-  `}
-
-  ${p => p.margin && `
-    margin: ${p => p.margin};
-  `}
-
+  ${props => buildStyle(props)}
 `
+
+View.propTypes = {
+  wrap: PropTypes.bool,
+  direction: PropTypes.oneOf(['direction', 'row']),
+  align: PropTypes.oneOf([
+    'stretch',
+    'center',
+    'space-around',
+    'space-between',
+    'flex-start',
+    'flex-end'
+  ]),
+  justify: PropTypes.oneOf([
+    'center',
+    'space-around',
+    'space-between',
+    'flex-start',
+    'flex-end'
+  ]),
+  full: PropTypes.oneOf([
+    true,
+    false,
+    'horizontal',
+    'vertical'
+  ]),
+  flex: PropTypes.oneOf([true, false, 'grow', 'shrink'])
+}
 
 export default View

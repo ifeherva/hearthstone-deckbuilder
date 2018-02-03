@@ -12,10 +12,13 @@ const baseStyles = () => injectGlobal`
     font-size: 13px;
     font-weight: 400;
     line-height: 20px;
+    height: 100%;
+    min-height: 100%;
   }
   body,
   #app {
     width: 100%;
+    height: 100%;
     min-height: 100%;
   }
 `

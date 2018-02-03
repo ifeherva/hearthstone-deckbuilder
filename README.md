@@ -11,7 +11,6 @@ A deck builder web application for Blizzard's Hearthstone. Built with React.
 |---------|-------------------------|
 | `start` | run in development mode |
 | `build` | builds for production   |
-| `test`  | run unit test           |
 | `lint`  | lints code              |
 
 ## License

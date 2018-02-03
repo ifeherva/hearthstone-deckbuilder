@@ -11,12 +11,10 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --env.dev",
     "build": "cross-env NODE_ENV=production webpack --env.build -p --bail",
     "clean": "rimraf build",
-    "test": "jest",
     "lint": "standard"
   },
   "dependencies": {
     "react": "^16.2.0",
-    "react-animations": "^1.0.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -34,7 +32,6 @@
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",
-    "jest": "^22.1.4",
     "json-loader": "^0.5.7",
     "lint-staged": "^6.1.0",
     "parcel-bundler": "1.4.1",

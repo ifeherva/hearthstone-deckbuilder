@@ -1,38 +1,38 @@
 [
   {
-    "className": "warrior",
-    "image": "/images/warrior.png"
+    "className": "WARRIOR",
+    "image": "/images/warrior.jpg"
   },
   {
-    "className": "shaman",
-    "image": "/images/shaman.png"
+    "className": "SHAMAN",
+    "image": "/images/shaman.jpg"
   },
   {
-    "className": "rogue",
-    "image": "/images/rogue.png"
+    "className": "ROGUE",
+    "image": "/images/rogue.jpg"
   },
   {
-    "className": "paladin",
-    "image": "/images/paladin.png"
+    "className": "PALADIN",
+    "image": "/images/paladin.jpg"
   },
   {
-    "className": "hunter",
-    "image": "/images/hunter.png"
+    "className": "HUNTER",
+    "image": "/images/hunter.jpg"
   },
   {
-    "className": "druid",
-    "image": "/images/druid.png"
+    "className": "DRUID",
+    "image": "/images/druid.jpg"
   },
   {
-    "className": "warlock",
-    "image": "/images/warlock.png"
+    "className": "WARLOCK",
+    "image": "/images/warlock.jpg"
   },
   {
-    "className": "mage",
-    "image": "/images/mage.png"
+    "className": "MAGE",
+    "image": "/images/mage.jpg"
   },
   {
-    "className": "priest",
-    "image": "/images/priest.png"
+    "className": "PRIEST",
+    "image": "/images/priest.jpg"
   }
 ]
