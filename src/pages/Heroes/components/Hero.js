@@ -49,7 +49,7 @@ export default class Hero extends Component {
     const { className, image } = this.props
     return (
       <HeroContainer>
-        <HeroLink to={`/${className}`}>
+        <HeroLink to={`/${className}`.toLowerCase()}>
           <HeroImage image={image} />
           <HeroName>
             {className}

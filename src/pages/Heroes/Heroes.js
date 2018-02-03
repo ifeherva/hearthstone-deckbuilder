@@ -20,7 +20,7 @@ const HeroesContainer = styled(View)`
 export default class Heroes extends Component {
   render () {
     return (
-      <Background direction='column' flex full='vertical'>
+      <Background flex full='vertical'>
         <View>
           <Header>CLASS SELECT</Header>
           <Subtitle>CHOOSE YOUR CLASS/HERO</Subtitle>
