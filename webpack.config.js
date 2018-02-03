@@ -21,7 +21,7 @@ module.exports = ({ build = false, dev = false }) => ({
       index: '/index.html',
       disableDotRule: true
     },
-    contentBase: buildPath,
+    contentBase: path.resolve('static'),
     overlay: false,
     port: 1234
   },
@@ -55,8 +55,10 @@ module.exports = ({ build = false, dev = false }) => ({
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: path.join(__dirname, 'src')
-      }
+        include: [path.join(__dirname, 'src'), path.join(__dirname, 'data')]
+      },
+      { test: /\.(png|jpg|gif)$/, loader: 'file-loader' },
+      { test: /\.json$/, loader: 'json-loader' }
     ]
   }
 })

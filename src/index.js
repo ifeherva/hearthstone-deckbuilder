@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { injectGlobal } from 'styled-components'
 import reset from 'styled-reset'
 import App from './pages/App'
@@ -21,7 +22,12 @@ const baseStyles = () => injectGlobal`
 
 const render = () => {
   baseStyles()
-  ReactDOM.render(<App />, document.getElementById('app'))
+  ReactDOM.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+    document.getElementById('app')
+  )
 }
 
 render()
