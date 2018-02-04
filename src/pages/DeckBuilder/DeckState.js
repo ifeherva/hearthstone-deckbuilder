@@ -78,7 +78,12 @@ export default class DeckState extends Component {
     const { deck } = this.state
     const cardCount = deck[cardId] || 0
     deck[cardId] = Math.max(cardCount - 1, 0)
-    const newDeck = Object.entries(deck).filter(([id, quantity]) => quantity)
+    const newDeck = Object.entries(deck).reduce((deck, [cardId, quantity]) => {
+      if (quantity) {
+        deck[cardId] = quantity
+      }
+      return deck
+    }, {})
     this.setState({ deck: newDeck })
     this.fetchSuggestions()
   }
