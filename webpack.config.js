@@ -5,7 +5,7 @@ const path = require('path')
 const buildPath = path.join(__dirname, 'build')
 
 module.exports = ({ build = false, dev = false }) => ({
-  entry: ['babel-polyfill', './src/index.js'],
+  entry: ['babel-polyfill', 'whatwg-fetch', './src/index.js'],
   output: {
     filename: dev ? '[name].[hash].js' : `[name].[chunkhash].js`,
     path: buildPath,

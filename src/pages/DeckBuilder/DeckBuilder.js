@@ -50,6 +50,7 @@ export default class DeckBuilder extends Component {
       filteredList,
       cards,
       suggestions,
+      suggestionsLoading,
       manaEnabled,
       classEnabled,
       neutralEnabled,
@@ -87,7 +88,11 @@ export default class DeckBuilder extends Component {
         <Sidebar full='vertical'>
           <Hero className={heroClass} image={heroImage} />
           <Separator />
-          <Suggestions suggestions={suggestions} cards={cards} />
+          <Suggestions
+            isLoading={suggestionsLoading}
+            suggestions={suggestions}
+            cards={cards}
+          />
           <Separator />
           <Deck deck={deck} cards={cards} removeCard={removeDeckCard} />
           <Separator />
@@ -105,7 +110,8 @@ DeckBuilder.propTypes = {
   heroImage: PropTypes.string.isRequired,
   deck: PropTypes.object.isRequired,
   filteredList: PropTypes.array.isRequired,
-  cards: PropTypes.string.isRequired,
+  cards: PropTypes.object.isRequired,
+  suggestionsLoading: PropTypes.bool.isRequired,
   suggestions: PropTypes.array.isRequired,
   manaEnabled: PropTypes.array.isRequired,
   classEnabled: PropTypes.bool.isRequired,

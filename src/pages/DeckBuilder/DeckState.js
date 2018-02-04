@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import heroes from 'data/heroes.json'
 import cardsDB from 'data/cards.json'
 import DeckBuilder from './DeckBuilder'
+import { encode } from 'deckstrings'
 
 export default class DeckState extends Component {
   constructor (props) {
@@ -22,6 +23,7 @@ export default class DeckState extends Component {
     this.state = {
       heroClass: hero.className,
       heroImage: hero.smallImage,
+      heroId: hero.id,
       deck: {},
       cards: usableCards.reduce((out, card) => {
         out[card.id] = card
@@ -42,6 +44,7 @@ export default class DeckState extends Component {
     this.fetchSuggestions = this.fetchSuggestions.bind(this)
     this.exportDeck = this.exportDeck.bind(this)
     this.removeDeckCard = this.removeDeckCard.bind(this)
+    this.dbfIdToId = this.dbfIdToId.bind(this)
   }
 
   setFilter (filter) {
@@ -75,13 +78,87 @@ export default class DeckState extends Component {
     const { deck } = this.state
     const cardCount = deck[cardId] || 0
     deck[cardId] = Math.max(cardCount - 1, 0)
-    this.setState({ deck })
+    const newDeck = Object.entries(deck).filter(([id, quantity]) => quantity)
+    this.setState({ deck: newDeck })
     this.fetchSuggestions()
   }
 
-  fetchSuggestions () {}
+  async fetchSuggestions () {
+    this.setState({ suggestionsLoading: true })
+    try {
+      const suggestionsResponse = await fetch(
+        'http://127.0.0.1:1234/suggestor/api/v1.0/cardsuggestions',
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            hero_class: this.state.heroClass,
+            cards: Object.keys(this.state.deck).map(
+              id => this.state.cards[id].name
+            )
+          })
+        }
+      )
 
-  exportDeck () {}
+      const apiResult = await suggestionsResponse.json()
+      const suggestions = apiResult
+        .map(({ dbfId }) => this.dbfIdToId(dbfId))
+        .filter(v => v)
+      this.setState({ suggestions })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setState({ suggestionsLoading: false })
+    }
+  }
+
+  exportDeck () {
+    const dbfDeck = Object.entries(this.state.deck).map(([id, quantity]) => [
+      this.idToDbfId(id),
+      quantity
+    ])
+    const deckString = encode({
+      cards: dbfDeck,
+      heroes: [this.state.heroId],
+      format: 1
+    })
+    const blob = new Blob([deckString], { type: 'application/json' })
+    const blobURL = window.URL.createObjectURL(blob)
+    const tempLink = document.createElement('a')
+    tempLink.style.display = 'none'
+    tempLink.href = blobURL
+    tempLink.setAttribute('download', 'deckfile')
+
+    if (typeof tempLink.download === 'undefined') {
+      tempLink.setAttribute('target', '_blank')
+    }
+
+    document.body.appendChild(tempLink)
+    tempLink.click()
+    document.body.removeChild(tempLink)
+    window.URL.revokeObjectURL(blobURL)
+  }
+
+  idToDbfId (id) {
+    const card = this.state.cards[id]
+    if (!card) {
+      return null
+    }
+    return card.dbfId
+  }
+
+  dbfIdToId (dbfId) {
+    const card = Object.values(this.state.cards).find(
+      card => card.dbfId === dbfId
+    )
+    if (!card) {
+      return null
+    }
+    return card.id
+  }
 
   applyCardFilter () {
     const {

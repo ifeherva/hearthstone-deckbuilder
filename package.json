@@ -16,13 +16,16 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "deckstrings": "^1.1.0",
     "lodash.omit": "^4.5.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-loader-spinner": "^1.4.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "styled-components": "^3.1.5",
-    "styled-reset": "^1.0.1"
+    "styled-reset": "^1.0.1",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -54,6 +57,7 @@
   },
   "standard": {
     "parser": "babel-eslint",
-    "ignore": ["src/vendor"]
+    "ignore": ["src/vendor"],
+    "global": ["Blob", "fetch"]
   }
 }
