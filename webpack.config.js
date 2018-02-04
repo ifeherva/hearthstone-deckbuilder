@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 
 const buildPath = path.join(__dirname, 'build')
@@ -32,6 +33,11 @@ module.exports = ({ build = false, dev = false }) => ({
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${build ? 'production' : 'development'}'`
     }),
+    !dev &&
+      new CopyWebpackPlugin(
+        [{ from: path.resolve('static'), to: path.join(buildPath) }],
+        { copyUnmodified: true }
+      ),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.join(__dirname, 'src', 'index.html'),
