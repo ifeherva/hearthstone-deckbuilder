@@ -26,6 +26,7 @@ export default function Collection ({ deck, cards, list, addCard }) {
       <Container wrap direction='row' justify='flex-start' full='horizontal'>
         {list.map(cardId => (
           <Card
+            key={cardId}
             disabled={deck[cardId] === 2}
             addCard={() => addCard(cardId)}
             {...cards[cardId]}

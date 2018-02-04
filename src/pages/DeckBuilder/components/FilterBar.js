@@ -32,6 +32,12 @@ const InputWrapper = styled(View)`
   margin-right: 2rem;
 `
 
+const CardCount = styled(View)`
+  color: rgba(200, 200, 200, 0.8);
+  margin-right: 2rem;
+  font-size: 1.2rem;
+`
+
 FilterBar.propTypes = {
   manaEnabled: PropTypes.array.isRequired,
   classEnabled: PropTypes.bool.isRequired,
@@ -40,10 +46,14 @@ FilterBar.propTypes = {
   filter: PropTypes.string.isRequired,
   setManaEnabled: PropTypes.func.isRequired,
   setClassEnabled: PropTypes.func.isRequired,
-  setNeutralEnabled: PropTypes.func.isRequired
+  setNeutralEnabled: PropTypes.func.isRequired,
+  filteredList: PropTypes.array.isRequired,
+  cards: PropTypes.object.isRequired
 }
 
 export default function FilterBar ({
+  cards,
+  filteredList,
   manaEnabled,
   classEnabled,
   neutralEnabled,
@@ -62,14 +72,19 @@ export default function FilterBar ({
         setClassEnabled={setClassEnabled}
       />
       <ManaFilter enabled={manaEnabled} setManaEnabled={setManaEnabled} />
-      <InputWrapper direction='row' align='center'>
-        <img src={searchIcon} height={15} />
-        <Input
-          type='text'
-          value={filter}
-          onChange={e => setFilter(e.target.value)}
-        />
-      </InputWrapper>
+      <View direction='row' align='center'>
+        <CardCount>
+          {filteredList.length}/{Object.entries(cards).length}
+        </CardCount>
+        <InputWrapper direction='row' align='center'>
+          <img src={searchIcon} height={15} />
+          <Input
+            type='text'
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+          />
+        </InputWrapper>
+      </View>
     </FilterContainer>
   )
 }

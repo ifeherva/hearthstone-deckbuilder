@@ -71,6 +71,8 @@ export default class DeckBuilder extends Component {
             setManaEnabled={setManaEnabled}
             setClassEnabled={setClassEnabled}
             setNeutralEnabled={setNeutralEnabled}
+            filteredList={filteredList}
+            cards={cards}
           />
           <ScrollContainer direction='row' flex>
             <Collection
