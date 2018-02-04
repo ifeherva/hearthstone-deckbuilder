@@ -11,6 +11,7 @@ import Collection from './components/Collection'
 
 const PageContainer = styled(View)`
   background-color: #323232;
+  overflow: hidden;
 `
 
 const Background = styled(View)`
@@ -20,6 +21,10 @@ const Background = styled(View)`
   padding-top: 4.5rem;
   padding-left: 5.5rem;
   padding-bottom: 4rem;
+  overflow: hidden;
+`
+const ScrollContainer = styled(View)`
+  overflow: auto;
 `
 
 const Sidebar = styled(View)`
@@ -47,24 +52,40 @@ export default class DeckBuilder extends Component {
     this.state = {
       heroClass: hero.className,
       heroImage: hero.smallImage,
-      deck: []
+      deck: {
+        AT_001: 2,
+        AT_013: 1,
+        AT_014: 4
+      },
+      cards: cardsDB.reduce((out, card) => {
+        out[card.id] = card
+        return out
+      }, {}),
+      unfilteredList: cardsDB.map(card => card.id),
+      suggestions: ['AT_015', 'AT_016', 'AT_017', 'AT_018', 'AT_019', 'AT_020']
     }
   }
 
+  applyFilter () {
+    return this.state.unfilteredList
+  }
+
   render () {
-    const { heroClass, heroImage } = this.state
-    const filteredCards = cardsDB
+    const { heroClass, heroImage, deck, cards, suggestions } = this.state
+    const filteredList = this.applyFilter()
     return (
       <PageContainer direction='row' flex full='vertical'>
         <Background flex>
-          <Collection cards={filteredCards} />
+          <ScrollContainer direction='row' flex>
+            <Collection cards={cards} list={filteredList} />
+          </ScrollContainer>
         </Background>
         <Sidebar full='vertical'>
           <Hero className={heroClass} image={heroImage} />
           <Separator />
-          <Suggestions />
+          <Suggestions suggestions={suggestions} cards={cards} />
           <Separator />
-          <Deck />
+          <Deck deck={deck} cards={cards} />
           <Separator />
           <CostChart />
         </Sidebar>

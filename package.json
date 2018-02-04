@@ -8,10 +8,11 @@
     "yarn": ">= 1.0.0"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --env.dev",
+    "start":
+      "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --env.dev",
     "build": "cross-env NODE_ENV=production webpack --env.build -p --bail",
     "clean": "rimraf build",
-    "lint": "prettier --write && standard --fix",
+    "lint": "prettier --write ./src/**.js && standard --fix",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -20,7 +21,6 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-virtualized": "^9.18.5",
     "styled-components": "^3.1.5",
     "styled-reset": "^1.0.1"
   },
@@ -50,16 +50,10 @@
     "singleQuote": true
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "standard --fix",
-      "git add"
-    ]
+    "*.js": ["prettier --write", "standard --fix", "git add"]
   },
   "standard": {
     "parser": "babel-eslint",
-    "ignore": [
-      "src/vendor"
-    ]
+    "ignore": ["src/vendor"]
   }
 }

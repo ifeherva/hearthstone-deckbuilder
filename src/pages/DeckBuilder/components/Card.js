@@ -1,24 +1,30 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import View from 'components/View'
 
-const Container = styled(View)`
-  padding: 5px;
-`
-
-const CardImage = styled('div')`
+const CardImage = styled.div.attrs({
+  style: ({ id }) => ({
+    backgroundImage: `url(https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${id}.png)`
+  })
+})`
+  margin-top: -12.5px;
+  margin-bottom: -12.5px;
   width: 200px;
   height: 298px;
   background-position: fixed;
   background-attachment: center;
   background-size: 200px;
-  background-image: url(https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${props =>
-      props.id}.png);
 `
-export default function Card ({ className, id }) {
+
+Card.propTypes = {
+  id: PropTypes.string.isRequired
+}
+
+export default function Card ({ id }) {
   return (
-    <Container>
+    <View>
       <CardImage id={id} />
-    </Container>
+    </View>
   )
 }
