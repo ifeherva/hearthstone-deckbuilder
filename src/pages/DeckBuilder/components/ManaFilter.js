@@ -17,13 +17,14 @@ const ManaBubble = styled(ViewWrapper)`
   align-items: center;
   margin-left: 0.5rem;
   position: relative;
-  color: rgba(200, 200, 200, 0.8);
+  color: rgb(200, 200, 200);
   width: 25px;
   height: 14.43px;
   cursor: pointer;
-  background-color: ${p => p.on && '#0070DE'};
-  border-left: solid 1px rgba(200, 200, 200, 0.8);
-  border-right: solid 1px rgba(200, 200, 200, 0.8);
+  background: ${p =>
+    p.on && 'linear-gradient(120deg, #0070de 0%, #349aff 150%)'};
+  border-left: solid 1px rgb(200, 200, 200);
+  border-right: solid 1px rgb(200, 200, 200);
 
   &:before,
   &:after {
@@ -35,20 +36,20 @@ const ManaBubble = styled(ViewWrapper)`
     -webkit-transform: scaleY(0.5774) rotate(-45deg);
     -ms-transform: scaleY(0.5774) rotate(-45deg);
     transform: scaleY(0.5774) rotate(-45deg);
-    background-color: inherit;
+    background: inherit;
     left: 3px;
   }
 
   &:before {
     top: -10px;
-    border-top: solid 1.4142px rgba(200, 200, 200, 0.8);
-    border-right: solid 1.4142px rgba(200, 200, 200, 0.8);
+    border-top: solid 1.4142px rgb(200, 200, 200);
+    border-right: solid 1.4142px rgb(200, 200, 200);
   }
 
   &:after {
     bottom: -9px;
-    border-bottom: solid 1.4142px rgba(200, 200, 200, 0.8);
-    border-left: solid 1.4142px rgba(200, 200, 200, 0.8);
+    border-bottom: solid 1.4142px rgb(200, 200, 200);
+    border-left: solid 1.4142px rgb(200, 200, 200);
   }
 `
 ManaBubble.propTypes = {

@@ -2,10 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import View from 'components/View'
+import cursorUrl from './cursor.png'
 
 const Container = styled(View)`
   height: 35px;
   cursor: pointer;
+  cursor: url('${cursorUrl}'), auto;
   position: relative;
 `
 
@@ -52,7 +54,7 @@ const ManaCost = styled(View)`
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  background-color: #286eb2;
+  background: linear-gradient(120deg, #0070de 0%, #349aff 100%);
 `
 
 const CardCount = styled(View)`

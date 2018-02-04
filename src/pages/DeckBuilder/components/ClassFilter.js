@@ -5,7 +5,8 @@ import omit from 'lodash.omit'
 import View from 'components/View'
 
 const Container = styled(View)`
-  width: 150px;
+  width: 130px;
+}
 `
 
 const ViewWrapper = props => (
@@ -15,9 +16,10 @@ const ViewWrapper = props => (
 const FilterBox = styled(ViewWrapper)`
   border-top: 1px solid rgba(200, 200, 200, 0.8);
   border-bottom: 1px solid rgba(200, 200, 200, 0.8);
-  color: rgba(200, 200, 200, 0.8);
+  color: rgb(200, 200, 200);
   padding: 0.7rem;
-  background-color: ${p => p.enabled && '#0070DE'};
+  background: ${p =>
+    p.enabled && 'linear-gradient(120deg, #0070de 0%, #349aff 150%)'};
   border-left: 1px solid rgba(200, 200, 200, 0.8);
   border-right: ${p => p.last && '1px solid rgba(200, 200, 200, 0.8)'};
   border-bottom-left-radius: ${p => p.first && '4px'};

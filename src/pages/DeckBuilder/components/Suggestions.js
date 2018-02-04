@@ -7,6 +7,11 @@ import View from 'components/View'
 import SidebarHeader from 'components/SidebarHeader'
 import DeckCard from './DeckCard'
 import Loader from 'react-loader-spinner'
+import omit from 'lodash.omit'
+
+const DivWrapper = props => (
+  <View {...omit(props || {}, ['unmountOnExit', 'transitionClassNames'])} />
+)
 
 const Container = styled(View)`
   flex-grow: 0.5;
@@ -16,7 +21,7 @@ const ScrollContainer = styled(View)`
   overflow: auto;
 `
 
-const Fade = transition.div.attrs({
+const Fade = transition(DivWrapper).attrs({
   unmountOnExit: true,
   timeout: 300
 })`

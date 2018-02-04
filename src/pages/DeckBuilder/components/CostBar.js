@@ -27,7 +27,7 @@ const Bar = styled(View)`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(40, 110, 178, 0.8);
+  background: linear-gradient(120deg, #0070de 0%, #349aff 150%);
   height: ${props => props.fill * 100}%;
   transition: height 0.5s;
 `

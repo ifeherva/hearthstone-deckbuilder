@@ -17,7 +17,6 @@ const PageContainer = styled(View)`
 `
 
 const Background = styled(View)`
-  margin-top: 1.5rem;
   overflow: hidden;
 `
 const ScrollContainer = styled(View)`

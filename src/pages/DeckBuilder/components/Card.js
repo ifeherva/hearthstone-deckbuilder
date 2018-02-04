@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import View from 'components/View'
+import cursorUrl from './cursor.png'
 
 const CardImage = styled.div.attrs({
   style: ({ id, disabled }) => ({
@@ -17,6 +18,7 @@ const CardImage = styled.div.attrs({
   background-attachment: center;
   background-size: 200px;
   cursor: pointer;
+  cursor: url('${cursorUrl}'), auto;
   transition: opacity 0.2s ease-in;
 `
 

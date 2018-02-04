@@ -6,11 +6,16 @@ import transition from 'styled-transition-group'
 import View from 'components/View'
 import SidebarHeader from 'components/SidebarHeader'
 import DeckCard from './DeckCard'
+import omit from 'lodash.omit'
+
+const DivWrapper = props => (
+  <View {...omit(props || {}, ['unmountOnExit', 'transitionClassNames'])} />
+)
 
 const ScrollContainer = styled(View)`
   overflow: auto;
 `
-const Fade = transition.div.attrs({
+const Fade = transition(DivWrapper).attrs({
   unmountOnExit: true,
   timeout: 300
 })`

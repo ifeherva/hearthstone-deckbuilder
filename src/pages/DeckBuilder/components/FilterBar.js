@@ -6,10 +6,14 @@ import ManaFilter from './ManaFilter'
 import ClassFilter from './ClassFilter'
 import searchIcon from './search.png'
 
+const Wrapper = styled(View)`
+  height: 60px;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.8);
+`
+
 const FilterContainer = styled(View)`
-  height: 40px;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  height: 100%;
+  margin-left: 2rem;
 `
 
 const Input = styled('input')`
@@ -19,7 +23,7 @@ const Input = styled('input')`
   border: none;
   flex: 1;
   border-radius: 0.25rem;
-  color: rgba(200, 200, 200, 0.8);
+  color: rgb(200, 200, 200);
   font-size: 1.2rem;
   padding-left: 0.5rem;
   &:focus {
@@ -28,12 +32,12 @@ const Input = styled('input')`
 `
 
 const InputWrapper = styled(View)`
-  border-bottom: 2px solid rgba(200, 200, 200, 0.8);
+  border-bottom: 2px solid rgb(200, 200, 200);
   margin-right: 2rem;
 `
 
 const CardCount = styled(View)`
-  color: rgba(200, 200, 200, 0.8);
+  color: rgb(200, 200, 200);
   margin-right: 2rem;
   font-size: 1.2rem;
 `
@@ -64,27 +68,29 @@ export default function FilterBar ({
   setNeutralEnabled
 }) {
   return (
-    <FilterContainer direction='row' justify='space-between' align='center'>
-      <ClassFilter
-        neutralEnabled={neutralEnabled}
-        classEnabled={classEnabled}
-        setNeutralEnabled={setNeutralEnabled}
-        setClassEnabled={setClassEnabled}
-      />
-      <ManaFilter enabled={manaEnabled} setManaEnabled={setManaEnabled} />
-      <View direction='row' align='center'>
-        <CardCount>
-          {filteredList.length}/{Object.entries(cards).length}
-        </CardCount>
-        <InputWrapper direction='row' align='center'>
-          <img src={searchIcon} height={15} />
-          <Input
-            type='text'
-            value={filter}
-            onChange={e => setFilter(e.target.value)}
-          />
-        </InputWrapper>
-      </View>
-    </FilterContainer>
+    <Wrapper>
+      <FilterContainer direction='row' justify='space-between' align='center'>
+        <ClassFilter
+          neutralEnabled={neutralEnabled}
+          classEnabled={classEnabled}
+          setNeutralEnabled={setNeutralEnabled}
+          setClassEnabled={setClassEnabled}
+        />
+        <ManaFilter enabled={manaEnabled} setManaEnabled={setManaEnabled} />
+        <View direction='row' align='center'>
+          <CardCount>
+            {filteredList.length}/{Object.entries(cards).length}
+          </CardCount>
+          <InputWrapper direction='row' align='center'>
+            <img src={searchIcon} height={15} />
+            <Input
+              type='text'
+              value={filter}
+              onChange={e => setFilter(e.target.value)}
+            />
+          </InputWrapper>
+        </View>
+      </FilterContainer>
+    </Wrapper>
   )
 }
