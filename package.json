@@ -1,19 +1,75 @@
 {
   "name": "hearthstone-deckbuilder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Hearthstone Deck Builder",
   "private": true,
-  "devDependencies": {
-    "connect-modrewrite": "^0.7.6",
-    "grunt": "^0.4.5",
-    "grunt-contrib-connect": "^0.8.0",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-jade": "^0.12.0",
-    "grunt-contrib-stylus": "^0.18.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "nib": "^1.0.3"
-  },
   "engines": {
+    "node": ">=9.0",
     "yarn": ">= 1.0.0"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --env.dev",
+    "build": "cross-env NODE_ENV=production webpack --env.build -p --bail",
+    "clean": "rimraf build",
+    "lint": "prettier --write ./src/**.js && standard --fix",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "deckstrings": "^1.1.0",
+    "lodash.omit": "^4.5.0",
+    "qs": "^6.5.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-loader-spinner": "^1.4.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-transition-group": "^2.2.1",
+    "styled-components": "^3.1.5",
+    "styled-reset": "^1.0.1",
+    "styled-transition-group": "^1.0.0-rc.3",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react-app": "^3.1.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^4.3.1",
+    "cross-env": "^5.1.3",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
+    "json-loader": "^0.5.7",
+    "lint-staged": "^6.1.0",
+    "parcel-bundler": "1.4.1",
+    "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
+    "standard": "^10.0.3",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "src/vendor"
+    ],
+    "global": [
+      "Blob",
+      "fetch"
+    ]
   }
 }

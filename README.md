@@ -1,18 +1,17 @@
 # Hearthstone deck builder with card recommendations
 
-A deck builder web application for Blizzard's Hearthstone. Built with AngularJS.
+A deck builder web application for Blizzard's Hearthstone. Built with React.
 
-## Installation
+## Requirements
+[NodeJS](https://nodejs.org)
+[Yarn](https://yarnpkg.com)
 
-Serve ``dist/`` from your web server.
-
-## Development
-
-```bash
-$ npm install -g grunt-cli
-$ yarn
-$ grunt
-```
+## Tasks
+| Task    |                         |
+|---------|-------------------------|
+| `start` | run in development mode |
+| `build` | builds for production   |
+| `lint`  | lints code              |
 
 ## License
 
