@@ -9,11 +9,11 @@ const HeroImage = styled.div`
   width: 100%;
   height: 100%;
   background-position: center;
-  background-size: 250px;
+  background-size: 200px;
   background-image: url(${props => props.image});
-  transition: all .5s;
+  transition: all 0.5s;
   &:hover {
-    background-size: 200px;
+    background-size: 250px;
   }
 `
 
@@ -51,9 +51,7 @@ export default class Hero extends Component {
       <HeroContainer>
         <HeroLink to={`/${className}`.toLowerCase()}>
           <HeroImage image={image} />
-          <HeroName>
-            {className}
-          </HeroName>
+          <HeroName>{className}</HeroName>
         </HeroLink>
       </HeroContainer>
     )
