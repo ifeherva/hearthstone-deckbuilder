@@ -47,10 +47,11 @@ const Fade = transition(DivWrapper).attrs({
 Suggestion.propTypes = {
   suggestions: PropTypes.array.isRequired,
   cards: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  addCard: PropTypes.func.isRequired
 }
 
-export default function Suggestion ({ isLoading, suggestions, cards }) {
+export default function Suggestion ({ isLoading, suggestions, cards, addCard }) {
   return (
     <Container flex>
       <SidebarHeader direction='row' align='center' justify='space-between'>
@@ -63,7 +64,7 @@ export default function Suggestion ({ isLoading, suggestions, cards }) {
         <TransitionGroup>
           {suggestions.map(id => (
             <Fade key={id}>
-              <DeckCard id={id} cards={cards} />
+              <DeckCard id={id} cards={cards} onClick={() => addCard(id)} />
             </Fade>
           ))}
         </TransitionGroup>
