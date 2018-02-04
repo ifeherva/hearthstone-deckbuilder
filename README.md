@@ -9,6 +9,7 @@ A deck builder web application for Blizzard's Hearthstone. Built with React.
 ## Tasks
 | Task    |                         |
 |---------|-------------------------|
+| `install`| installs all dependencies|
 | `start` | run in development mode |
 | `build` | builds for production   |
 | `lint`  | lints code              |
