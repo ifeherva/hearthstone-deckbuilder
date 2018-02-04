@@ -11,17 +11,13 @@ import FilterBar from './components/FilterBar'
 import Options from './components/Options'
 
 const PageContainer = styled(View)`
-  background-color: #323232;
+  background-color: #222222;
   overflow: hidden;
   height: 100%;
 `
 
 const Background = styled(View)`
-  background-color: #222222;
-  background-position: left bottom;
-  padding-top: 3.5rem;
-  padding-left: 5.5rem;
-  padding-bottom: 4.5rem;
+  margin-top: 1.5rem;
   overflow: hidden;
 `
 const ScrollContainer = styled(View)`
@@ -30,6 +26,7 @@ const ScrollContainer = styled(View)`
 
 const Sidebar = styled(View)`
   width: 250px;
+  background-color: #323232;
   overflow: hidden;
   border-left: 1px solid rgba(255, 255, 255, 0.6);
 `

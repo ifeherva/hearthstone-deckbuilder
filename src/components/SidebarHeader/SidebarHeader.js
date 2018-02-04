@@ -6,7 +6,7 @@ const SidebarHeader = styled(View)`
   color: #ffffff;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  background-color: #151515;
+  background-color: #222222;
   justify-content: ${p => (p.justify ? p.justify : 'center')};
   font-size: 1.1rem;
 `

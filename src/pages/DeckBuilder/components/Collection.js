@@ -8,6 +8,11 @@ const Container = styled(View)`
   overflow: auto;
 `
 
+const Padder = styled(View)`
+  width: 90%;
+  margin: auto;
+`
+
 Collection.propTypes = {
   cards: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
@@ -17,15 +22,17 @@ Collection.propTypes = {
 
 export default function Collection ({ deck, cards, list, addCard }) {
   return (
-    <Container wrap direction='row' justify='flex-start' full='horizontal'>
-      {list.map(cardId => (
-        <Card
-          disabled={deck[cardId] === 2}
-          addCard={() => addCard(cardId)}
-          key={cardId}
-          {...cards[cardId]}
-        />
-      ))}
-    </Container>
+    <Padder>
+      <Container wrap direction='row' justify='flex-start' full='horizontal'>
+        {list.map(cardId => (
+          <Card
+            disabled={deck[cardId] === 2}
+            addCard={() => addCard(cardId)}
+            key={cardId}
+            {...cards[cardId]}
+          />
+        ))}
+      </Container>
+    </Padder>
   )
 }

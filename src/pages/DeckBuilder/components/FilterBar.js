@@ -8,7 +8,8 @@ import searchIcon from './search.png'
 
 const FilterContainer = styled(View)`
   height: 40px;
-  width: 100%;
+  margin-left: 3rem;
+  margin-right: 3rem;
 `
 
 const Input = styled('input')`
