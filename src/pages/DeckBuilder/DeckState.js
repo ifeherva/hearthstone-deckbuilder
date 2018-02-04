@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import qs from 'qs'
 import heroes from 'data/heroes.json'
 import cardsDB from 'data/cards.json'
 import DeckBuilder from './DeckBuilder'
@@ -20,11 +21,19 @@ export default class DeckState extends Component {
         card.playerClass.toLowerCase() === 'neutral' ||
         card.playerClass.toLowerCase() === hero.className.toLowerCase()
     )
+    const urlDeck = (qs.parse(this.props.location.search).deck || []).reduce(
+      (deck, id) => {
+        deck[id] = (deck[id] || 0) + 1
+        return deck
+      },
+      {}
+    )
+
     this.state = {
       heroClass: hero.className,
       heroImage: hero.smallImage,
       heroId: hero.id,
-      deck: {},
+      deck: urlDeck,
       cards: usableCards.reduce((out, card) => {
         out[card.id] = card
         return out
@@ -72,6 +81,7 @@ export default class DeckState extends Component {
     deck[cardId] = Math.min(cardCount + 1, 2)
     this.setState({ deck })
     this.fetchSuggestions()
+    this.updateURL()
   }
 
   removeDeckCard (cardId) {
@@ -86,6 +96,7 @@ export default class DeckState extends Component {
     }, {})
     this.setState({ deck: newDeck })
     this.fetchSuggestions()
+    this.updateURL()
   }
 
   async fetchSuggestions () {
@@ -196,6 +207,22 @@ export default class DeckState extends Component {
           return manaEnabled[cardManaCost]
         })
     )
+  }
+
+  updateURL () {
+    const { history, location } = this.props
+    const deck = Object.entries(this.state.deck).reduce(
+      (out, card) => {
+        Array.from(Array(card[1]).keys()).forEach(() => out.push(card[0]))
+        return out
+      },
+      ['']
+    )
+    const queryDeck = qs.stringify({ deck })
+    history.replace({
+      pathname: location.pathname,
+      search: queryDeck
+    })
   }
 
   render () {
