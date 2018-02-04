@@ -17,6 +17,7 @@ const CardImage = styled.div.attrs({
   background-attachment: center;
   background-size: 200px;
   cursor: pointer;
+  transition: opacity 0.2s ease-in;
 `
 
 Card.propTypes = {

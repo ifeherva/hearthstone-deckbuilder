@@ -17,8 +17,7 @@ const PageContainer = styled(View)`
 `
 
 const Background = styled(View)`
-  background: url(/images/background2.jpg) no-repeat center center fixed;
-  background-size: cover;
+  background-color: #222222;
   background-position: left bottom;
   padding-top: 3.5rem;
   padding-left: 5.5rem;

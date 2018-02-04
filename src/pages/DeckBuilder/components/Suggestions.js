@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { TransitionGroup } from 'react-transition-group'
+import transition from 'styled-transition-group'
 import View from 'components/View'
 import SidebarHeader from 'components/SidebarHeader'
 import DeckCard from './DeckCard'
@@ -12,6 +14,29 @@ const Container = styled(View)`
 
 const ScrollContainer = styled(View)`
   overflow: auto;
+`
+
+const Fade = transition.div.attrs({
+  unmountOnExit: true,
+  timeout: 1000
+})`
+  &:enter {
+    opacity: 0.01;
+    transform: scale(0.3);
+  }
+  &:enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms ease-in;
+  }
+  &:exit {
+    opacity: 1;
+  }
+  &:exit-active {
+    opacity: 0.01;
+    transform: scale(0.3);
+    transition: opacity 300ms ease-in;
+  }
 `
 
 Suggestion.propTypes = {
@@ -30,7 +55,13 @@ export default function Suggestion ({ isLoading, suggestions, cards }) {
         )}
       </SidebarHeader>
       <ScrollContainer flex>
-        {suggestions.map(id => <DeckCard key={id} id={id} cards={cards} />)}
+        <TransitionGroup>
+          {suggestions.map(id => (
+            <Fade key={id}>
+              <DeckCard id={id} cards={cards} />
+            </Fade>
+          ))}
+        </TransitionGroup>
       </ScrollContainer>
     </Container>
   )

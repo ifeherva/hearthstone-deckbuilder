@@ -29,6 +29,7 @@ const Bar = styled(View)`
   right: 0;
   background-color: rgba(40, 110, 178, 0.8);
   height: ${props => props.fill * 100}%;
+  transition: height 0.5s;
 `
 
 const Label = styled.span`
