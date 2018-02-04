@@ -5,7 +5,7 @@ import View from 'components/View'
 import SidebarHeader from 'components/SidebarHeader'
 import DeckCard from './DeckCard'
 
-const Container = styled(View)`
+const ScrollContainer = styled(View)`
   overflow: auto;
 `
 
@@ -18,11 +18,11 @@ export default function Deck ({ deck, cards }) {
   return (
     <View flex>
       <SidebarHeader>DECK</SidebarHeader>
-      <Container flex>
+      <ScrollContainer flex>
         {Object.entries(deck).map(([id, quantity]) => (
           <DeckCard key={id} id={id} cards={cards} quantity={quantity} />
         ))}
-      </Container>
+      </ScrollContainer>
     </View>
   )
 }

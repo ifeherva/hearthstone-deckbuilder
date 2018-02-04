@@ -29,6 +29,7 @@ const ScrollContainer = styled(View)`
 
 const Sidebar = styled(View)`
   width: 250px;
+  overflow: hidden;
   border-left: 1px solid rgba(255, 255, 255, 0.6);
 `
 
@@ -55,7 +56,11 @@ export default class DeckBuilder extends Component {
       deck: {
         AT_001: 2,
         AT_013: 1,
-        AT_014: 4
+        AT_014: 4,
+        AT_015: 2,
+        AT_019: 1,
+        AT_022: 1,
+        BRM_031: 3
       },
       cards: cardsDB.reduce((out, card) => {
         out[card.id] = card
@@ -87,7 +92,7 @@ export default class DeckBuilder extends Component {
           <Separator />
           <Deck deck={deck} cards={cards} />
           <Separator />
-          <CostChart />
+          <CostChart deck={deck} cards={cards} />
         </Sidebar>
       </PageContainer>
     )

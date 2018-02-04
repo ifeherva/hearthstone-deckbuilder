@@ -6,7 +6,7 @@ import SidebarHeader from 'components/SidebarHeader'
 import DeckCard from './DeckCard'
 
 const Container = styled(View)`
-  flex-grow: 0.1;
+  flex-grow: 0.5;
 `
 
 const ScrollContainer = styled(View)`
@@ -20,7 +20,7 @@ Suggestion.propTypes = {
 
 export default function Suggestion ({ suggestions, cards }) {
   return (
-    <Container>
+    <Container flex>
       <SidebarHeader>SUGGESTIONS</SidebarHeader>
       <ScrollContainer flex>
         {suggestions.map(id => <DeckCard key={id} id={id} cards={cards} />)}

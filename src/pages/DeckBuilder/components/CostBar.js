@@ -27,7 +27,7 @@ const Bar = styled(View)`
   left: 0;
   right: 0;
   background-color: rgba(40, 110, 178, 0.8);
-  height: ${props => props.fill}%;
+  height: ${props => props.fill * 100}%;
 `
 
 const Label = styled.span`
@@ -43,7 +43,7 @@ export default function CostBar ({ cost, bar, count }) {
       <BarContainer flex>
         <Bar fill={bar} />
       </BarContainer>
-      <Label>{cost}</Label>
+      <Label>{cost >= 7 ? '7+' : cost}</Label>
     </Container>
   )
 }
