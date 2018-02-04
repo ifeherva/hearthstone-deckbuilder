@@ -4,6 +4,18 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-es2015-modules-commonjs"
+    "transform-es2015-modules-commonjs",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "components": "./src/components",
+          "pages": "./src/pages",
+          "data": "./src/data",
+          "vendor": "./src/vendor",
+          "~": "./src"
+        }
+      }
+    ]
   ]
 }

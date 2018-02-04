@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import heroes from './heroes.json'
-import View from '../../components/View'
-import Header from '../../components/Header'
-import Subtitle from '../../components/Subtitle'
+import heroes from 'data/heroes.json'
+import View from 'components/View'
+import Header from 'components/Header'
+import Subtitle from 'components/Subtitle'
 import Hero from './components/Hero'
 
 const Background = styled(View)`
@@ -25,7 +25,13 @@ export default class Heroes extends Component {
           <Header>CLASS SELECT</Header>
           <Subtitle>CHOOSE YOUR CLASS/HERO</Subtitle>
         </View>
-        <HeroesContainer direction='row' flex full='horizontal' justify='space-around' align='center'>
+        <HeroesContainer
+          direction='row'
+          flex
+          full='horizontal'
+          justify='space-around'
+          align='center'
+        >
           {heroes.map(hero => <Hero {...hero} key={hero.className} />)}
         </HeroesContainer>
       </Background>

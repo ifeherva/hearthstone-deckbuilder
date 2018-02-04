@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import View from '../../../components/View'
+import View from 'components/View'
 
 CostBar.propTypes = {
   cost: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -26,7 +26,7 @@ const Bar = styled(View)`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(40,110,178, 0.8);
+  background-color: rgba(40, 110, 178, 0.8);
   height: ${props => props.fill}%;
 `
 
@@ -37,11 +37,13 @@ const Label = styled.span`
 `
 
 export default function CostBar ({ cost, bar, count }) {
-  return <Container flex justify='center' align='center'>
-    <Label>{count}</Label>
-    <BarContainer flex>
-      <Bar fill={bar} />
-    </BarContainer>
-    <Label>{cost}</Label>
-  </Container>
+  return (
+    <Container flex justify='center' align='center'>
+      <Label>{count}</Label>
+      <BarContainer flex>
+        <Bar fill={bar} />
+      </BarContainer>
+      <Label>{cost}</Label>
+    </Container>
+  )
 }

@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import View from '../../components/View'
+import View from 'components/View'
+import heroes from 'data/heroes.json'
+import cardsDB from 'data/cards.json'
 import CostChart from './components/CostChart'
 import Suggestions from './components/Suggestions'
 import Deck from './components/Deck'
+import Hero from './components/Hero'
+import Collection from './components/Collection'
 
 const PageContainer = styled(View)`
   background-color: #323232;
@@ -30,11 +34,34 @@ const Separator = styled(View)`
 `
 
 export default class DeckBuilder extends Component {
+  constructor (props) {
+    super(props)
+    const { match: { params }, history } = props
+    const hero = heroes.find(
+      ({ className }) =>
+        className.toLowerCase() === params.heroname.toLowerCase()
+    )
+    if (!hero) {
+      history.push('/')
+    }
+    this.state = {
+      heroClass: hero.className,
+      heroImage: hero.smallImage,
+      deck: []
+    }
+  }
+
   render () {
+    const { heroClass, heroImage } = this.state
+    const filteredCards = cardsDB
     return (
       <PageContainer direction='row' flex full='vertical'>
-        <Background flex />
+        <Background flex>
+          <Collection cards={filteredCards} />
+        </Background>
         <Sidebar full='vertical'>
+          <Hero className={heroClass} image={heroImage} />
+          <Separator />
           <Suggestions />
           <Separator />
           <Deck />

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import View from '../../../components/View'
+import View from 'components/View'
 
 const Container = styled(View)`
   overflow: auto;

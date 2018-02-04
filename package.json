@@ -11,7 +11,8 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --env.dev",
     "build": "cross-env NODE_ENV=production webpack --env.build -p --bail",
     "clean": "rimraf build",
-    "lint": "standard"
+    "lint": "prettier --write && standard --fix",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "lodash.omit": "^4.5.0",
@@ -19,12 +20,14 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-virtualized": "^9.18.5",
     "styled-components": "^3.1.5",
     "styled-reset": "^1.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.2",
+    "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-react-app": "^3.1.1",
@@ -41,5 +44,22 @@
     "standard": "^10.0.3",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "src/vendor"
+    ]
   }
 }
