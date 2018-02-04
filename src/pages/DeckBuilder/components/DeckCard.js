@@ -6,6 +6,7 @@ import View from 'components/View'
 const Container = styled(View)`
   height: 35px;
   cursor: pointer;
+  position: relative;
 `
 
 const CardImage = styled.div.attrs({
@@ -18,9 +19,14 @@ const CardImage = styled.div.attrs({
   flex: 1;
   height: 100%;
   background-repeat: no-repeat;
-  background-position: fixed;
+  background-position: top right;
   background-attachment: center;
-  background-size: 230px;
+  background-size: 260px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1)
+  );
 `
 const rarityColors = {
   POOR: '#9d9d9d',
@@ -64,7 +70,7 @@ const CardName = styled.span`
   line-height: 35px;
   font-size: 1rem;
   color: #ffffff;
-  left: 10px;
+  left: 28px;
   top: 0;
   right: 0;
   bottom: 0;
@@ -80,9 +86,8 @@ export default function DeckCard ({ cards, id, quantity, onClick }) {
   return (
     <Container direction='row' onClick={onClick}>
       <ManaCost>{cards[id].cost}</ManaCost>
-      <CardImage id={id}>
-        <CardName>{cards[id].name}</CardName>
-      </CardImage>
+      <CardImage id={id} />
+      <CardName>{cards[id].name}</CardName>
       {quantity && <CardCount>{quantity}</CardCount>}
       <CardRarity rarity={cards[id].rarity} />
     </Container>

@@ -28,7 +28,6 @@ export default function Collection ({ deck, cards, list, addCard }) {
           <Card
             disabled={deck[cardId] === 2}
             addCard={() => addCard(cardId)}
-            key={cardId}
             {...cards[cardId]}
           />
         ))}

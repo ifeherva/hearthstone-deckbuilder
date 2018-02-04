@@ -12,7 +12,7 @@ const ScrollContainer = styled(View)`
 `
 const Fade = transition.div.attrs({
   unmountOnExit: true,
-  timeout: 1000
+  timeout: 300
 })`
   &:enter {
     opacity: 0.01;
