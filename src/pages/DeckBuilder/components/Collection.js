@@ -10,13 +10,22 @@ const Container = styled(View)`
 
 Collection.propTypes = {
   cards: PropTypes.object.isRequired,
-  list: PropTypes.array.isRequired
+  list: PropTypes.array.isRequired,
+  addCard: PropTypes.func.isRequired,
+  deck: PropTypes.object.isRequired
 }
 
-export default function Collection ({ cards, list }) {
+export default function Collection ({ deck, cards, list, addCard }) {
   return (
-    <Container wrap direction='row' justify='center' full='horizontal'>
-      {list.map(cardId => <Card key={cardId} {...cards[cardId]} />)}
+    <Container wrap direction='row' justify='flex-start' full='horizontal'>
+      {list.map(cardId => (
+        <Card
+          disabled={deck[cardId] === 2}
+          addCard={() => addCard(cardId)}
+          key={cardId}
+          {...cards[cardId]}
+        />
+      ))}
     </Container>
   )
 }

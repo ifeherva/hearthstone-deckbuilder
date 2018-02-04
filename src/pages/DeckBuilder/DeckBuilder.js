@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import View from 'components/View'
-import heroes from 'data/heroes.json'
-import cardsDB from 'data/cards.json'
 import CostChart from './components/CostChart'
 import Suggestions from './components/Suggestions'
 import Deck from './components/Deck'
 import Hero from './components/Hero'
 import Collection from './components/Collection'
 import FilterBar from './components/FilterBar'
+import Options from './components/Options'
 
 const PageContainer = styled(View)`
   background-color: #323232;
@@ -42,50 +42,46 @@ const Separator = styled(View)`
 `
 
 export default class DeckBuilder extends Component {
-  constructor (props) {
-    super(props)
-    const { match: { params }, history } = props
-    const hero = heroes.find(
-      ({ className }) =>
-        className.toLowerCase() === params.heroname.toLowerCase()
-    )
-    if (!hero) {
-      history.push('/')
-    }
-    this.state = {
-      heroClass: hero.className,
-      heroImage: hero.smallImage,
-      deck: {
-        AT_001: 2,
-        AT_013: 1,
-        AT_014: 4,
-        AT_015: 2,
-        AT_019: 1,
-        AT_022: 1,
-        BRM_031: 3
-      },
-      cards: cardsDB.reduce((out, card) => {
-        out[card.id] = card
-        return out
-      }, {}),
-      unfilteredList: cardsDB.map(card => card.id),
-      suggestions: ['AT_015', 'AT_016', 'AT_017', 'AT_018', 'AT_019', 'AT_020']
-    }
-  }
-
-  applyFilter () {
-    return this.state.unfilteredList
-  }
-
   render () {
-    const { heroClass, heroImage, deck, cards, suggestions } = this.state
-    const filteredList = this.applyFilter()
+    const {
+      heroClass,
+      heroImage,
+      deck,
+      filteredList,
+      cards,
+      suggestions,
+      manaEnabled,
+      classEnabled,
+      neutralEnabled,
+      filter,
+      setFilter,
+      setManaEnabled,
+      setClassEnabled,
+      setNeutralEnabled,
+      addDeckCard,
+      exportDeck,
+      removeDeckCard
+    } = this.props
     return (
       <PageContainer direction='row' flex>
         <Background flex>
-          <FilterBar />
+          <FilterBar
+            manaEnabled={manaEnabled}
+            classEnabled={classEnabled}
+            neutralEnabled={neutralEnabled}
+            filter={filter}
+            setFilter={setFilter}
+            setManaEnabled={setManaEnabled}
+            setClassEnabled={setClassEnabled}
+            setNeutralEnabled={setNeutralEnabled}
+          />
           <ScrollContainer direction='row' flex>
-            <Collection cards={cards} list={filteredList} />
+            <Collection
+              addCard={addDeckCard}
+              cards={cards}
+              list={filteredList}
+              deck={deck}
+            />
           </ScrollContainer>
         </Background>
         <Sidebar full='vertical'>
@@ -93,11 +89,33 @@ export default class DeckBuilder extends Component {
           <Separator />
           <Suggestions suggestions={suggestions} cards={cards} />
           <Separator />
-          <Deck deck={deck} cards={cards} />
+          <Deck deck={deck} cards={cards} removeCard={removeDeckCard} />
           <Separator />
           <CostChart deck={deck} cards={cards} />
+          <Separator />
+          <Options exportDeck={exportDeck} />
         </Sidebar>
       </PageContainer>
     )
   }
+}
+
+DeckBuilder.propTypes = {
+  heroClass: PropTypes.string.isRequired,
+  heroImage: PropTypes.string.isRequired,
+  deck: PropTypes.object.isRequired,
+  filteredList: PropTypes.array.isRequired,
+  cards: PropTypes.string.isRequired,
+  suggestions: PropTypes.array.isRequired,
+  manaEnabled: PropTypes.array.isRequired,
+  classEnabled: PropTypes.bool.isRequired,
+  neutralEnabled: PropTypes.bool.isRequired,
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  setManaEnabled: PropTypes.func.isRequired,
+  setClassEnabled: PropTypes.func.isRequired,
+  setNeutralEnabled: PropTypes.func.isRequired,
+  addDeckCard: PropTypes.func.isRequired,
+  exportDeck: PropTypes.func.isRequired,
+  removeDeckCard: PropTypes.func.isRequired
 }

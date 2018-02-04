@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import View from 'components/View'
 
 const CardImage = styled.div.attrs({
-  style: ({ id }) => ({
-    backgroundImage: `url(https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${id}.png)`
+  style: ({ id, disabled }) => ({
+    backgroundImage: `url(https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${id}.png)`,
+    opacity: disabled ? 0.4 : 1
   })
 })`
   margin-top: -12.5px;
@@ -15,16 +16,19 @@ const CardImage = styled.div.attrs({
   background-position: fixed;
   background-attachment: center;
   background-size: 200px;
+  cursor: pointer;
 `
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  addCard: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired
 }
 
-export default function Card ({ id }) {
+export default function Card ({ id, disabled, addCard }) {
   return (
-    <View>
-      <CardImage id={id} />
+    <View onClick={addCard}>
+      <CardImage disabled={disabled} id={id} />
     </View>
   )
 }

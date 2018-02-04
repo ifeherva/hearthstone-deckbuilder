@@ -11,17 +11,26 @@ const ScrollContainer = styled(View)`
 
 Deck.propTypes = {
   deck: PropTypes.object.isRequired,
-  cards: PropTypes.object.isRequired
+  cards: PropTypes.object.isRequired,
+  removeCard: PropTypes.func.isRequired
 }
 
-export default function Deck ({ deck, cards }) {
+export default function Deck ({ deck, cards, removeCard }) {
   return (
     <View flex>
       <SidebarHeader>DECK</SidebarHeader>
       <ScrollContainer flex>
-        {Object.entries(deck).map(([id, quantity]) => (
-          <DeckCard key={id} id={id} cards={cards} quantity={quantity} />
-        ))}
+        {Object.entries(deck)
+          .filter(card => card[1])
+          .map(([id, quantity]) => (
+            <DeckCard
+              onClick={() => removeCard(id)}
+              key={id}
+              id={id}
+              cards={cards}
+              quantity={quantity}
+            />
+          ))}
       </ScrollContainer>
     </View>
   )

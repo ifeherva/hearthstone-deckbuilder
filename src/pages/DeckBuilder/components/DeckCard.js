@@ -5,6 +5,7 @@ import View from 'components/View'
 
 const Container = styled(View)`
   height: 35px;
+  cursor: pointer;
 `
 
 const CardImage = styled.div.attrs({
@@ -75,9 +76,9 @@ DeckCard.propTypes = {
   quantity: PropTypes.number
 }
 
-export default function DeckCard ({ cards, id, quantity }) {
+export default function DeckCard ({ cards, id, quantity, onClick }) {
   return (
-    <Container direction='row'>
+    <Container direction='row' onClick={onClick}>
       <ManaCost>{cards[id].cost}</ManaCost>
       <CardImage id={id}>
         <CardName>{cards[id].name}</CardName>
