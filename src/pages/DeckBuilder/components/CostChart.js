@@ -17,8 +17,8 @@ CostChart.propTypes = {
 export default function CostChart ({ deck, cards }) {
   const costValues = Object.entries(deck).reduce(
     (out, [id, quantity]) => {
-      const cardCost = Math.min(cards[id].cost, 6)
-      out[cardCost] = out[cardCost] + quantity
+      const cardCost = Math.min(cards[id].cost, 7)
+      out[cardCost - 1] = out[cardCost - 1] + quantity
       return out
     },
     [0, 0, 0, 0, 0, 0, 0]
