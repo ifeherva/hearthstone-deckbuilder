@@ -30,7 +30,7 @@ export default class DeckState extends Component {
         return out
       }, {}),
       suggestions: [],
-      manaEnabled: Array.from({ length: 7 }, () => true),
+      manaEnabled: Array.from({ length: 8 }, () => true),
       filter: '',
       classEnabled: true,
       neutralEnabled: true,
@@ -192,8 +192,8 @@ export default class DeckState extends Component {
         )
         // filter by mana cost
         .filter(cardId => {
-          const cardManaCost = Math.min(cards[cardId].cost, 7)
-          return manaEnabled[cardManaCost - 1]
+          const cardManaCost = Math.min(cards[cardId].cost, 8)
+          return manaEnabled[cardManaCost]
         })
     )
   }

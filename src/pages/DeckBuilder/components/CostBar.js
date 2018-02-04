@@ -11,6 +11,7 @@ CostBar.propTypes = {
 
 const Container = styled(View)`
   height: 100%;
+  width: 20px;
 `
 
 const BarContainer = styled(View)`

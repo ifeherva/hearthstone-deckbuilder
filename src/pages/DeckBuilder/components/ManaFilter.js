@@ -69,7 +69,7 @@ export default function ManaFilter ({ enabled, setManaEnabled }) {
           on={enabled}
           onClick={() => setManaEnabled(idx, !enabled)}
         >
-          <ManaCost>{idx === 6 ? '7+' : idx + 1}</ManaCost>
+          <ManaCost>{idx === 7 ? '7+' : idx}</ManaCost>
         </ManaBubble>
       ))}
     </View>
