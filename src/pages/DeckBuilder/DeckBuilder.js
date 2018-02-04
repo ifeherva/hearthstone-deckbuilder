@@ -8,19 +8,21 @@ import Suggestions from './components/Suggestions'
 import Deck from './components/Deck'
 import Hero from './components/Hero'
 import Collection from './components/Collection'
+import FilterBar from './components/FilterBar'
 
 const PageContainer = styled(View)`
   background-color: #323232;
   overflow: hidden;
+  height: 100%;
 `
 
 const Background = styled(View)`
   background: url(/images/background2.jpg) no-repeat center center fixed;
   background-size: cover;
   background-position: left bottom;
-  padding-top: 4.5rem;
+  padding-top: 3.5rem;
   padding-left: 5.5rem;
-  padding-bottom: 4rem;
+  padding-bottom: 4.5rem;
   overflow: hidden;
 `
 const ScrollContainer = styled(View)`
@@ -79,8 +81,9 @@ export default class DeckBuilder extends Component {
     const { heroClass, heroImage, deck, cards, suggestions } = this.state
     const filteredList = this.applyFilter()
     return (
-      <PageContainer direction='row' flex full='vertical'>
+      <PageContainer direction='row' flex>
         <Background flex>
+          <FilterBar />
           <ScrollContainer direction='row' flex>
             <Collection cards={cards} list={filteredList} />
           </ScrollContainer>

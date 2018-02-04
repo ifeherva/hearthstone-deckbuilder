@@ -27,7 +27,12 @@ export default function CostChart ({ deck, cards }) {
   return (
     <Container direction='row' justify='space-around' align='center'>
       {costValues.map((cost, idx) => (
-        <CostBar cost={idx + 1} bar={cardCount / 100 * cost} count={cost} />
+        <CostBar
+          key={idx}
+          cost={idx + 1}
+          bar={cardCount / 100 * cost}
+          count={cost}
+        />
       ))}
     </Container>
   )
