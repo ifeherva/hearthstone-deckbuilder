@@ -16,20 +16,17 @@ const Fade = transition.div.attrs({
 })`
   &:enter {
     opacity: 0.01;
-    transform: scale(0.3);
   }
   &:enter-active {
     opacity: 1;
-    transform: scale(1);
-    transition: opacity 300ms ease-in;
+    transition: opacity 300ms ease-in-out;
   }
   &:exit {
     opacity: 1;
   }
   &:exit-active {
     opacity: 0.01;
-    transform: scale(0.3);
-    transition: opacity 300ms ease-in;
+    transition: opacity 300ms ease-in-out;
   }
 `
 
