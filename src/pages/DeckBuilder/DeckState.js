@@ -103,7 +103,7 @@ export default class DeckState extends Component {
     this.setState({ suggestionsLoading: true })
     try {
       const suggestionsResponse = await fetch(
-        'http://127.0.0.1:1234/suggestor/api/v1.0/cardsuggestions',
+        'http://127.0.0.1:15000/suggestor/api/v1.0/cardsuggestions',
         {
           headers: {
             Accept: 'application/json',
