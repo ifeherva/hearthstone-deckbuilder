@@ -89,6 +89,7 @@ export default class DeckBuilder extends Component {
             isLoading={suggestionsLoading}
             suggestions={suggestions}
             cards={cards}
+            addCard={addDeckCard}
           />
           <Separator />
           <Deck deck={deck} cards={cards} removeCard={removeDeckCard} />
